@@ -3,6 +3,9 @@ from bs4 import BeautifulSoup as bs
 import json
 
 # TODO: Make OOP
+# TODO: Function for downloading images
+# TODO: Function for downloading videos
+# TODO: Script to create Evernote notes from JSON, image, and video files
 
 def scrape_recipe(url):
     
