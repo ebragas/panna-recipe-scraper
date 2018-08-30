@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup as bs
-import json
 
 # TODO: Make OOP
 # TODO: Function for downloading images
