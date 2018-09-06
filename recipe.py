@@ -2,12 +2,14 @@ import json
 import os
 import requests as r
 
+# TODO: Add try catch to methods to ensure state consistency
+
 output_dir = os.getcwd() + '/output/'
 
 class Recipe():
     def __init__(self, file_name):
         self.file_name = file_name
-        self.file_path = output_dir + file_name
+        self.file_path = output_dir + 'json/' + file_name
         
         # Read recipe file contents
         with open(self.file_path, 'r') as f:
@@ -35,31 +37,39 @@ class Recipe():
 
     def download_img(self):
         '''Download recipe image file to image output folder.'''
-        # Download file
-        img = r.get(self.img_url)
-
         # File metadata
-        file_ext = self.img_url.find('.', len(self.img_url - 5))
+        file_ext = self.img_url[self.img_url.find('.', len(self.img_url) - 5):]
         self.img_file_path = output_dir + 'images/' + self.file_name.replace('.json', file_ext)
 
-        # Write file
-        with open(self.img_file_path, 'wb') as f:
-            f.write(img.content)
-        print('Downloaded: {}'.format(self.img_file_path))
+        # Check if file exists
+        if not os.path.isfile(self.img_file_path):
+            
+            # Download file
+            img = r.get(self.img_url)
+
+            # Write file
+            with open(self.img_file_path, 'wb') as f:
+                f.write(img.content)
+
+        return self.img_file_path
 
     def download_video(self):
         '''Download recipe video file video output folder.'''
-        # Download file
-        video = r.get(self.video_url)
-
         # File metadata
-        file_ext = self.video_url.find('.', len(self.video_url) - 5)
+        file_ext = self.video_url[self.video_url.find('.', len(self.video_url) - 5):]
         self.video_file_path = output_dir + 'videos/' + self.file_name.replace('.json', file_ext)
 
-        # Write file
-        with open(self.video_file_path, 'wb') as f:
-            f.write(video.content)
-        print('Downloaded: {}'.format(self.video_file_path))
+        # Check if file exists
+        if not os.path.isfile(self.video_file_path):
+        
+            # Download file
+            video = r.get(self.video_url)
+
+            # Write file
+            with open(self.video_file_path, 'wb') as f:
+                f.write(video.content)
+
+        return self.video_file_path
 
 
 
@@ -71,6 +81,6 @@ if __name__ == "__main__":
     for rfile in recipes:
         # print(rfile)
         recipe = Recipe(rfile)
-        recipe.download_img()
-        recipe.download_video()
-        break
+        print('Downloaded: {}'.format(recipe.download_img()))
+        print('Downloaded: {}'.format(recipe.download_video()))
+        # break
