@@ -62,10 +62,6 @@ class Recipe():
         print('Downloaded: {}'.format(self.video_file_path))
 
 
-# Create class object from that recipe
-# Download image method
-# Download video method
-# Attributes for JSON, image, and video locations
 
 if __name__ == "__main__":
     # Get list of recipe json files
