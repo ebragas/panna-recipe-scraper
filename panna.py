@@ -2,9 +2,8 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 # TODO: Make OOP
-# TODO: Function for downloading images
-# TODO: Function for downloading videos
-# TODO: Script to create Evernote notes from JSON, image, and video files
+# TODO: Change output location to ./output/json/*
+# TODO: Create Evernote notes from JSON, image, and video files
 
 def scrape_recipe(url):
     
