@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 # TODO: Make OOP
-# TODO: Change output location to ./output/json/*
+# TODO: Change output location to ./output/json/* (Needs test)
 # TODO: Create Evernote notes from JSON, image, and video files
 
 def scrape_recipe(url):
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     for url in url_list:
         print(i, url.split('/')[-2])
 
-        with open('./output/' + url.split('/')[-2] + '.json', 'w') as o:
+        with open('./output/json' + url.split('/')[-2] + '.json', 'w') as o:
             o.write(scrape_recipe(url=url))
 
         i += 1

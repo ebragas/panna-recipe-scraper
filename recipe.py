@@ -35,18 +35,28 @@ class Recipe():
 
     def download_img(self):
         '''Download recipe image file to image output folder.'''
+        # Download file
         img = r.get(self.img_url)
-        # TODO: Take file extension from URL
-        self.img_file_path = output_dir + 'images/' + self.file_name.replace('.json', '.jpg')
+
+        # File metadata
+        file_ext = self.img_url.find('.', len(self.img_url - 5))
+        self.img_file_path = output_dir + 'images/' + self.file_name.replace('.json', file_ext)
+
+        # Write file
         with open(self.img_file_path, 'wb') as f:
             f.write(img.content)
         print('Downloaded: {}'.format(self.img_file_path))
 
     def download_video(self):
         '''Download recipe video file video output folder.'''
+        # Download file
         video = r.get(self.video_url)
-        # TODO: Take file extension from URL
-        self.video_file_path = output_dir + 'videos/' + self.file_name.replace('.json', '.mp4')
+
+        # File metadata
+        file_ext = self.video_url.find('.', len(self.video_url) - 5)
+        self.video_file_path = output_dir + 'videos/' + self.file_name.replace('.json', file_ext)
+
+        # Write file
         with open(self.video_file_path, 'wb') as f:
             f.write(video.content)
         print('Downloaded: {}'.format(self.video_file_path))
@@ -59,7 +69,7 @@ class Recipe():
 
 if __name__ == "__main__":
     # Get list of recipe json files
-    recipes = os.listdir(output_dir)
+    recipes = os.listdir(output_dir + 'json/')
     
     # Iterate over recipe json files
     for rfile in recipes:
