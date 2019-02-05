@@ -3,3 +3,4 @@ output/*
 .vscode/settings.json
 *.pyc
 .vscode/
+.env/
