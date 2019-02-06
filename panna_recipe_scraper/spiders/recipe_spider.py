@@ -4,10 +4,10 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 
-class PannaSpider(CrawlSpider):
-    name = 'panna'
-    allowed_domains = ['pannacooking.com/']
-    start_urls = ['http://https://www.pannacooking.com/recipes/']
+class RecipeSpiderSpider(CrawlSpider):
+    name = 'recipe_spider'
+    allowed_domains = ['pannacooking.com']
+    start_urls = ['http://pannacooking.com/']
 
     rules = (
         Rule(LinkExtractor(allow=r'Items/'), callback='parse_item', follow=True),

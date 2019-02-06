@@ -3,20 +3,19 @@
 # OS Support also exists for jessie & stretch (slim and full).
 # See https://hub.docker.com/r/library/python/ for all supported Python
 # tags from Docker Hub.
-FROM python:alpine
+FROM python:3
 
 # If you prefer miniconda:
 #FROM continuumio/miniconda3
 
 LABEL Name=panna-recipe-scraper Version=0.0.1
-EXPOSE 3000
 
 WORKDIR /app
 ADD . /app
 
 # Using pip:
 RUN python3 -m pip install -r requirements.txt
-CMD ["python3", "-m", "panna-recipe-scraper"]
+CMD ["python3", "main.py"]
 
 # Using pipenv:
 #RUN python3 -m pip install pipenv
