@@ -2,6 +2,13 @@
 .env/
 .vscode/
 __pycache__/
+.ipynb_checkpoints/
+
+# File types
 .pyc
 *.ipynb
-.ipynb_checkpoints/
+
+# Data files
+*.csv
+*.mp4
+*.jpg
