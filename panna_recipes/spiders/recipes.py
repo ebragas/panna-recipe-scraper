@@ -16,13 +16,21 @@ class RecipesSpider(CrawlSpider):
 
     def start_requests(self):
         for url in self.start_urls:
-            yield scrapy.Request(url=url, callback=self.parse_page)
+            yield scrapy.Request(url=url, callback=self.parse_api_page)
 
-    def parse_page(self, response):
+    def parse_api_page(self, response):
         page_data = json.loads(response.text)
         
         for recipe in page_data['_embedded']['recipes']:
-            yield recipe
+            # callback parse_recipe_page
+            yield scrapy.Request(f"https://www.pannacooking.com/recipes/{recipe['slug']}/", callback=self.parse_recipe_page)
 
         for link in page_data['_links'].values():
-            yield scrapy.Request(url=link['href'], callback=self.parse_page)
+            yield scrapy.Request(url=link['href'], callback=self.parse_api_page)
+
+    def parse_recipe_page(self, response):
+        data = response.css("script[type='application/ld+json']::text").get()
+        item = json.loads(data)
+        item['image_urls'] = [item['thumbnailUrl']]
+        item['file_urls'] = [item['video']['contentURL']]
+        yield item

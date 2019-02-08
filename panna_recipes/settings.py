@@ -67,9 +67,23 @@ CONCURRENT_REQUESTS_PER_DOMAIN = 3
 #ITEM_PIPELINES = {
 #    'panna_recipes.pipelines.PannaRecipesPipeline': 300,
 #}
-ITEM_PIPELINES = {'scrapy.pipelines.files.FilesPipeline': 1}
-FILES_STORE = 'gs://panna-data/files'
-GCS_PROJECT_ID = 'panna-data'
+ITEM_PIPELINES = {'scrapy.pipelines.images.ImagesPipeline': 1,
+                  'scrapy.pipelines.files.FilesPipeline': 1}
+
+# -- Local Storage
+IMAGES_STORE = '/Users/ericbragas/dev/panna-recipe-scraper/data/images'
+FILES_STORE = '/Users/ericbragas/dev/panna-recipe-scraper/data/files'
+
+# -- GCS Storage
+# IMAGES_STORE = 'gs://panna-data/images'
+# FILES_STORE = 'gs://panna-data/files'
+# GCS_PROJECT_ID = 'panna-recipes'
+
+# 120 days of delay for files expiration
+FILES_EXPIRES = 120
+
+# 30 days of delay for images expiration
+IMAGES_EXPIRES = 30
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
